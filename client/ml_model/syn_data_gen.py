@@ -1,3 +1,4 @@
+
 '''
 import random
 import pandas as pd
@@ -48,8 +49,9 @@ def generate_tariff_data(num_customers=400, start_year=2015, end_year=2024):
     data = []
     for customer_id in range(1, num_customers + 1):
         region = random.choice(['rural', 'urban'])
-        household_size = random.randint(2, 12)
-        num_appliances = random.randint(4, 12) if region == 'rural' else random.randint(10, 25)
+        #household_size = random.randint(2, 12)
+        #num_appliances = random.randint(4, 12) if region == 'rural' else random.randint(10, 25)
+        num_appliances = 4
 
         for year in range(start_year, end_year + 1):
             for month in months:
@@ -61,7 +63,7 @@ def generate_tariff_data(num_customers=400, start_year=2015, end_year=2024):
                     'region': region,
                     'year': year,
                     'month': month,
-                    'household_size': household_size,
+                 #  'household_size': household_size,
                     'num_appliances': num_appliances,
                     'units_consumed_kwh': units,
                     'billing_amount_inr': bill
@@ -72,5 +74,5 @@ def generate_tariff_data(num_customers=400, start_year=2015, end_year=2024):
 # Generate the full dataset
 df = generate_tariff_data()
 print(df.head(13))
-#df.to_csv("D:\python based projects\ML data\electricity_tariff_fy25_clean.csv", index=False)
+#df.to_csv("electricity_tariff_clean.csv", index=False)
 '''
