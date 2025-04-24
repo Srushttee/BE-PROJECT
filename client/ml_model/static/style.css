@@ -1,0 +1,83 @@
+body {
+    background-color: #f5f7fa;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  h2 {
+    font-weight: bold;
+    color: #343a40;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  .card-header {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .modal-header {
+    background-color: #f8f9fa;
+    border-bottom: none;
+  }
+  
+  .modal-footer {
+    border-top: none;
+  }
+  
+  .modal-content {
+    border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+  }
+  
+  .btn:hover {
+    opacity: 0.9;
+  }
+  
+  .form-control {
+    border-radius: 6px;
+    box-shadow: none;
+    border: 1px solid #ced4da;
+  }
+  
+  .chat-box {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 6px;
+  }
+  
+  .alert-success {
+    background-color: #e6ffed;
+    color: #1e7e34;
+  }
+  
+  .flash-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 6px;
+  }
+  
+  .flash-success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .flash-error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
