@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Meter Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      {% if bill_result %}
+        let predictorModal = new bootstrap.Modal(document.getElementById('predictorModal'));
+        predictorModal.show();
+      {% elif chatbot_answer %}
+        let chatbotModal = new bootstrap.Modal(document.getElementById('chatbotModal'));
+        chatbotModal.show();
+      {% endif %}
+    });
+  </script>
+  
+<body>
+  <div class="container">
+    <h2 class="text-center mb-4">Smart Meter Dashboard</h2>
+
+    <!-- Dashboard Section -->
+    <div class="card mb-4">
+      <div class="card-header">Electricity Usage Overview</div>
+      <div class="card-body">
+        <p><strong>Current Month Usage:</strong> {{ usage.current_month_kwh }} kWh</p>
+        <p><strong>Last Month Usage:</strong> {{ usage.last_month_kwh }} kWh</p>
+        <p><strong>Predicted Next Month Usage:</strong> {{ usage.predicted_next_kwh }} kWh</p>
+      </div>
+    </div>
+
+    <!-- Buttons for Chatbot and Predictor -->
+    <div class="text-center mb-4">
+      <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#chatbotModal">Open Chatbot</button>
+      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#predictorModal">Predict Bill</button>
+    </div>
+
+    <!-- Chatbot Modal -->
+<div class="modal fade" id="chatbotModal" tabindex="-1">
+    <div class="modal-dialog">
+      <form method="post" action="{{ url_for('home') }}?user={{ user_email }}" class="modal-content">
+        <input type="hidden" name="form_type" value="chat">
+        <input type="hidden" name="email" value="{{ user_email }}">
+        <div class="modal-header">
+          <h5 class="modal-title">Chatbot</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input name="chat_question" class="form-control" placeholder="Ask me anything..." required>
+          {% if chatbot_answer %}
+          <div class="chat-box mt-3">
+            <strong>Answer:</strong>
+            <p>{{ chatbot_answer }}</p>
+          </div>
+          {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Ask</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+    <!-- Predictor Modal -->
+<div class="modal fade" id="predictorModal" tabindex="-1">
+    <div class="modal-dialog">
+      <form method="post" action="{{ url_for('home') }}?user={{ user_email }}" class="modal-content">
+        <input type="hidden" name="form_type" value="predict">
+        <input type="hidden" name="email" value="{{ user_email }}">
+        <div class="modal-header">
+          <h5 class="modal-title">Bill Predictor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="number" name="region_encoded" class="form-control mb-2" placeholder="Region (0 or 1)" required>
+          <input type="number" name="year" class="form-control mb-2" placeholder="Year (e.g. 2025)" required>
+          <input type="number" name="month_num" class="form-control mb-2" placeholder="Month (1-12)" required>
+          {% if bill_result %}
+          <div class="alert alert-success mt-3">
+            Predicted Units: <strong>{{ bill_result.predicted_units }}</strong><br>
+            Estimated Bill: ₹<strong>{{ bill_result.estimated_bill }}</strong>
+          </div>
+          {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Predict</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
